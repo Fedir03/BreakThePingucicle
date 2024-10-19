@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private float horizontal;
-    private float speed = 4f;
+    [SerializeField] private float speed = 4f;
 
     private bool isFacingRight = true;
     private bool canMove = true;
@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private float dashCooldown = 1f;
     private bool isAirAfterDash = false;
 
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravityForce = 9.8f;
     private Vector2 newYDir;
     private Vector2 newXDir;
-
+    [SerializeField] Collider2D winTrigger;
     private void Start()
     {
         jumpsLeft = maxJumps;
@@ -45,7 +46,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
         Vector3 gravityVect = (centerOfPlanet.transform.position - transform.position).normalized;
+        rb.totalForce = new Vector2(0, 0);
         rb.AddForce(gravityVect * gravityForce);
 
         Vector2 newYDir = (transform.position - centerOfPlanet.transform.position).normalized;
@@ -163,6 +166,8 @@ public class PlayerMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+
+
 
         // Get mouse position in world space and calculate the direction
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

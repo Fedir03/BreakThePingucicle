@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+
         Vector3 targetPosition = target.position + offset;
         targetPosition.z = transform.position.z;
 
@@ -27,7 +28,7 @@ public class CameraController : MonoBehaviour
             Mathf.Clamp(transform.position.y, minCameraPos.y, maxCameraPos.y), Mathf.Clamp(transform.position.z, minCameraPos.z, maxCameraPos.z));
 
         }
-
+        transform.rotation = target.rotation;
     }
 
 }
